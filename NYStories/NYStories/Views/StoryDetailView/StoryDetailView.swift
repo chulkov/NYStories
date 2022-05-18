@@ -7,21 +7,25 @@
 
 import Foundation
 import UIKit
+import SDWebImage
+
+protocol StoryDetailViewProtocol: AnyObject {
+    func seeMoreAction()
+}
 
 final class StoryDetailView: UIView {
     
-    private let titleLabel : UILabel = {
+    private let titleLabel: UILabel = {
         let lbl = UILabel(frame: CGRect(x: 0, y: 0, width: 230, height: 21))
         lbl.textColor = .black
         lbl.font = UIFont.boldSystemFont(ofSize: 36)
         lbl.textAlignment = .left
         lbl.numberOfLines = 0
         lbl.setContentHuggingPriority(.required, for: .vertical)
-//        lbl.setContentCompressionResistancePriority(.required, for: .vertical)
         return lbl
     }()
     
-    private let descriptionLabel : UILabel = {
+    private let descriptionLabel: UILabel = {
         let lbl = UILabel(frame: CGRect(x: 0, y: 0, width: 230, height: 21))
         lbl.textColor = .darkGray
         lbl.font = UIFont.systemFont(ofSize: 16)
@@ -31,7 +35,7 @@ final class StoryDetailView: UIView {
         return lbl
     }()
     
-    private let authorLabel : UILabel = {
+    private let authorLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .lightGray
         lbl.font = UIFont.systemFont(ofSize: 16)
@@ -43,23 +47,40 @@ final class StoryDetailView: UIView {
     
     private let storyImage: UIImageView = {
         let imgView = UIImageView()
-        imgView.backgroundColor = .blue
         imgView.contentMode = .scaleAspectFit
-//        imgView.clipsToBounds = true
+        imgView.image = UIImage(named: "download")
+        imgView.sd_imageTransition = .fade
         return imgView
     }()
     
+    private let seeMoreButton: UIButton = {
+        let btn = UIButton()
+        btn.backgroundColor = .clear
+        btn.contentHorizontalAlignment = .left
+        let yourAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 14),
+            .foregroundColor: UIColor.blue,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        let attributeString = NSMutableAttributedString(
+           string: "See more",
+           attributes: yourAttributes
+        )
+        btn.setAttributedTitle(attributeString, for: .normal)
+        
+        btn.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        return btn
+    }()
+    
+    weak var delegate: StoryDetailViewProtocol?
+    
     func setupUI() {
-//        self.backgroundColor = .gray
         self.addSubview(storyImage)
         self.addSubview(titleLabel)
         self.addSubview(descriptionLabel)
         self.addSubview(authorLabel)
-        
-        titleLabel.text = "JOPAAAAAAAAAA"
-        
+        self.addSubview(seeMoreButton)
         setupConstraints()
-        
     }
     
     private func setupConstraints() {
@@ -90,6 +111,13 @@ final class StoryDetailView: UIView {
         authorLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         authorLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
 //        authorLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
+        seeMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        seeMoreButton.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 10).isActive = true
+        seeMoreButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 15).isActive = true
+        seeMoreButton.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        seeMoreButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
     }
     
     func setup(with displayedStory: StoryList.Something.ViewModel.DisplayedStory) { 
@@ -97,9 +125,15 @@ final class StoryDetailView: UIView {
         titleLabel.text = displayedStory.title
         descriptionLabel.text = displayedStory.description
         authorLabel.text = displayedStory.author
+        guard let image = displayedStory.image else { return }
+        storyImage.sd_setImage(with: image, placeholderImage: UIImage(named: "download"))
 //        titleLabel.sizeToFit()
 //        descriptionLabel.sizeToFit()
         
+    }
+    
+    @objc func buttonAction(sender: UIButton!) {
+        delegate?.seeMoreAction()
     }
     
 }

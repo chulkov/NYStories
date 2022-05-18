@@ -35,7 +35,7 @@ class StoryListPresenter: StoryListPresentationLogic
         
         
         for story in response.stories {
-            displaydStories.append(StoryList.Something.ViewModel.DisplayedStory(image: UIImage(),
+            displaydStories.append(StoryList.Something.ViewModel.DisplayedStory(image: story.images?.first?.imageURL,
                                                                                 title: story.title,
                                                                                 author: story.author,
                                                                                 description: story.description,

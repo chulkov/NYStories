@@ -25,17 +25,13 @@ enum StoryList
         }
         struct ViewModel {
             struct DisplayedStory {
-                let image: UIImage
+                let image: URL?
                 let title: String
                 let author: String
                 let description: String
                 let url: URL
             }
             var displayedStory: [DisplayedStory]
-//            let storyTitle: String
-//            let storyAuthor: String
-//            let storyImage: UIImage
-//            var model: [StoryListTableViewCellModel]
         }
     }
 }

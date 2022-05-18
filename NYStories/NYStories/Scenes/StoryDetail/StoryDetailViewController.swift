@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import SafariServices
 
 protocol StoryDetailDisplayLogic: AnyObject
 {
@@ -30,8 +31,8 @@ class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic
         super.viewDidLoad()
         self.view.backgroundColor = .white
         view.addSubview(storyDetailView)
-        self.title = "jopa"
-        
+//        self.title = "jopa"
+        storyDetailView.delegate = self
         setupView()
         doSomething()
     }
@@ -53,7 +54,7 @@ class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic
     func doSomething()
     {
         guard let selectedStory = selectedStory else { return }
-
+        self.title = selectedStory.title
         storyDetailView.setup(with: selectedStory)
         
 //        let request = StoryDetail.Something.Request()
@@ -63,6 +64,16 @@ class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic
     func displaySomething(viewModel: StoryDetail.Something.ViewModel)
     {
         //nameTextField.text = viewModel.name
+    }
+}
+
+extension StoryDetailViewController: StoryDetailViewProtocol {
+    func seeMoreAction() {
+        guard let url = selectedStory?.url else { return }
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        let vc = SFSafariViewController(url: url, configuration: config)
+        self.present(vc, animated: true)
     }
 }
 

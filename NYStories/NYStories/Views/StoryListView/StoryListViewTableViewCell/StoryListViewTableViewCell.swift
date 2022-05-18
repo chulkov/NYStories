@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import SDWebImage
 //struct StoryListTableViewCellModel {
 //    let storyImage: UIImage
 //    let storyTitle: String
@@ -35,10 +35,14 @@ final class StoryListTableViewCell: UITableViewCell {
     }()
     
     private let storyImage : UIImageView = {
+        //TODO: Provide image placeholder
         let imgView = UIImageView()
-        imgView.backgroundColor = .blue
-        imgView.contentMode = .scaleAspectFit
+//        imgView.backgroundColor = .blue
+        imgView.contentMode = .scaleAspectFill
         imgView.clipsToBounds = true
+        imgView.layer.cornerRadius = 15
+//        imgView.image = UIImage(named: "download")
+        imgView.sd_imageTransition = .fade
         return imgView
     }()
     
@@ -48,7 +52,7 @@ final class StoryListTableViewCell: UITableViewCell {
         addSubview(titleLabel)
         addSubview(authorLabel)
         addSubview(storyImage)
-        
+        #imageLiteral(resourceName: "download.png")
         storyImage.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 90, height: 0, enableInsets: false)
         titleLabel.anchor(top: topAnchor, left: storyImage.rightAnchor, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 0, enableInsets: false)
         authorLabel.anchor(top: titleLabel.bottomAnchor, left: storyImage.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 0, enableInsets: false)
@@ -73,9 +77,37 @@ final class StoryListTableViewCell: UITableViewCell {
     func setup(with story: StoryList.Something.ViewModel.DisplayedStory) {
         authorLabel.text = story.author
         titleLabel.text = story.title
+        guard let image = story.image else { return }
+//        storyImage.load(url: image)
+        storyImage.sd_setImage(with: image, placeholderImage: UIImage(named: "download"))
     }
     
     
 }
 
+//TODO: Replace
 
+//extension UIImageView {
+//    func load(url: URL) {
+//        DispatchQueue.global().async { [weak self] in
+//            if let data = try? Data(contentsOf: url) {
+//                if let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        self?.setImage(image, animated: true)
+////                        self?.image = image
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//extension UIImageView{
+//    func setImage(_ image: UIImage?, animated: Bool = true) {
+//        let duration = animated ? 0.3 : 0.0
+//        UIView.transition(with: self, duration: duration, options: .transitionCrossDissolve, animations: {
+//            self.image = image
+//        }, completion: nil)
+//    }
+//}
+//
