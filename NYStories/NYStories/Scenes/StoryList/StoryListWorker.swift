@@ -12,9 +12,7 @@
 
 import UIKit
 
-class StoryListWorker
-{
-  func doSomeWork()
-  {
+class StoryListWorker {
+  func doSomeWork() {
   }
 }

@@ -12,13 +12,10 @@
 
 import UIKit
 
-enum StoryList
-{
-    // MARK: Use cases
-    
+enum StoryList {
+
     enum Something {
         struct Request {
-            
         }
         struct Response {
             var stories: [Story]

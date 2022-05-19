@@ -12,32 +12,19 @@
 
 import UIKit
 
-protocol StoryListBusinessLogic
-{
+protocol StoryListBusinessLogic {
     func fetchStories(request: StoryList.Something.Request)
 }
 
-protocol StoryListDataStore
-{
-    //var name: String { get set }
-}
-
-class StoryListInteractor: StoryListBusinessLogic, StoryListDataStore
+class StoryListInteractor: StoryListBusinessLogic
 {
     var presenter: StoryListPresentationLogic?
-//    var worker: StoryListWorker?
     var storiesWorker = StoryWorker()
-    //var name: String = ""
-    
-    // MARK: Do something
     
     func fetchStories(request: StoryList.Something.Request) {
-//        worker = StoryListWorker() //is essential??
-//        worker?.doSomeWork()
-        print("fetchStories started")
         storiesWorker.getStoriesList { stories in
             let response = StoryList.Something.Response(stories: stories)
-            self.presenter?.presentSomething(response: response)
+            self.presenter?.presentModel(response: response)
         }
     }
 }

@@ -8,19 +8,16 @@
 import Foundation
 import UIKit
 
-//struct StoryListViewSetupModel {
-//    var model: [StoryList.Something.ViewModel.DisplayedStory]
-//}
-
 protocol StoryListViewProtocol: AnyObject {
     func select(model: StoryList.Something.ViewModel.DisplayedStory)
 }
 
 final class StoryListView: UIView {
-    let tableView = UITableView()
-    private var displayedStories: [StoryList.Something.ViewModel.DisplayedStory]?//StoryListViewSetupModel?
-    weak var delegate: StoryListViewProtocol?
     
+    private let tableView = UITableView()
+    private var displayedStories: [StoryList.Something.ViewModel.DisplayedStory]?
+    weak var delegate: StoryListViewProtocol?
+    private let cellHeight = 100.0
     
     func setupUI() {
         self.backgroundColor = .lightGray
@@ -28,7 +25,7 @@ final class StoryListView: UIView {
         setupTableView()
     }
     
-    func setup(with displayedStories: [StoryList.Something.ViewModel.DisplayedStory]) { //StoryListViewSetupModel
+    func setup(with displayedStories: [StoryList.Something.ViewModel.DisplayedStory]) {
         self.displayedStories = displayedStories
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -63,7 +60,7 @@ extension StoryListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return cellHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -71,5 +68,4 @@ extension StoryListView: UITableViewDelegate, UITableViewDataSource {
         guard let model = self.displayedStories?[indexPath.row] else { return }
         delegate?.select(model: model)
     }
-    
 }

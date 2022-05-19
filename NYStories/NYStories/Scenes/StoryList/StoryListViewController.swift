@@ -12,32 +12,31 @@
 
 import UIKit
 
-protocol StoryListDisplayLogic: AnyObject
-{
-    func displaySomething(viewModel: StoryList.Something.ViewModel)
+protocol StoryListDisplayLogic: AnyObject {
+    func displayStories(viewModel: StoryList.Something.ViewModel)
 }
 
-class StoryListViewController: UIViewController, StoryListDisplayLogic
-{
+class StoryListViewController: UIViewController, StoryListDisplayLogic {
     var interactor: StoryListBusinessLogic?
-    var router: StoryListRoutingLogic?//(NSObjectProtocol & StoryListRoutingLogic & StoryListDataPassing)?
+    var router: StoryListRoutingLogic?
     let storyListTableView = StoryListView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "NYTimes - Top Stories"
         view.backgroundColor = .white
         view.addSubview(storyListTableView)
         storyListTableView.delegate = self
         setupTableView()
-        doSomething()
+        fetchStories()
     }
     
-    func doSomething() {
+    func fetchStories() {
         let request = StoryList.Something.Request()
         interactor?.fetchStories(request: request)
     }
     
-    func displaySomething(viewModel: StoryList.Something.ViewModel) {
+    func displayStories(viewModel: StoryList.Something.ViewModel) {
         storyListTableView.setup(with: viewModel.displayedStory)
     }
     
@@ -54,12 +53,7 @@ class StoryListViewController: UIViewController, StoryListDisplayLogic
 }
 
 extension StoryListViewController: StoryListViewProtocol {
-
     func select(model: StoryList.Something.ViewModel.DisplayedStory) {
-        print("d")
         router?.routeToStoryDetails(story: model)
-        //1. find element in [Story]
-        //2. go to StoryDetail with this element
-        
     }
 }

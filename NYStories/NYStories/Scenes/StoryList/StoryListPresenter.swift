@@ -12,27 +12,21 @@
 
 import UIKit
 
-protocol StoryListPresentationLogic
-{
-  func presentSomething(response: StoryList.Something.Response)
+protocol StoryListPresentationLogic {
+    func presentModel(response: StoryList.Something.Response)
 }
 
-class StoryListPresenter: StoryListPresentationLogic
-{
-  weak var viewController: StoryListDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: StoryList.Something.Response) {
-      print("we are at presenter and have \(response.stories.count)")
-    let viewModel = makeViewModel(for: response)
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+class StoryListPresenter: StoryListPresentationLogic {
+    weak var viewController: StoryListDisplayLogic?
+    
+    func presentModel(response: StoryList.Something.Response) {
+        print("we are at presenter and have \(response.stories.count)")
+        let viewModel = makeViewModel(for: response)
+        viewController?.displayStories(viewModel: viewModel)
+    }
     
     private func makeViewModel(for response: StoryList.Something.Response) -> StoryList.Something.ViewModel {
-//        var model = [StoryListTableViewCellModel]()
         var displaydStories = [StoryList.Something.ViewModel.DisplayedStory]()
-        
         
         for story in response.stories {
             displaydStories.append(StoryList.Something.ViewModel.DisplayedStory(image: story.images?.first?.imageURL,
@@ -43,5 +37,4 @@ class StoryListPresenter: StoryListPresentationLogic
         }
         return StoryList.Something.ViewModel(displayedStory: displaydStories)
     }
-    
 }

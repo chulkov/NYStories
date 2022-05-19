@@ -13,7 +13,7 @@ public class StoryWorker {
         NetworkAdapter.shared.request(AppConst.topStories) {  (response : BaseResult<Story>) in
             completion(response.results!)
         } failure: {
-            print("failure")
+            print("getStoriesList failure")
         }
     }
     

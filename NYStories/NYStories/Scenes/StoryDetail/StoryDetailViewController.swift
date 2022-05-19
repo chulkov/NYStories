@@ -13,34 +13,25 @@
 import UIKit
 import SafariServices
 
-protocol StoryDetailDisplayLogic: AnyObject
-{
-    func displaySomething(viewModel: StoryDetail.Something.ViewModel)
+protocol StoryDetailDisplayLogic: AnyObject {
+
 }
 
-class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic
-{
+class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic {
     var interactor: StoryDetailBusinessLogic?
-    var router: StoryDetailRoutingLogic? //(NSObjectProtocol & StoryDetailRoutingLogic & StoryDetailDataPassing)?
+    var router: StoryDetailRoutingLogic?
     var selectedStory: StoryList.Something.ViewModel.DisplayedStory?
     let storyDetailView = StoryDetailView()
-    // MARK: View lifecycle
-    
-    override func viewDidLoad()
-    {
+
+    override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         view.addSubview(storyDetailView)
-//        self.title = "jopa"
         storyDetailView.delegate = self
         setupView()
-        doSomething()
+        displayStoryDetails()
     }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
+
     private func setupView() {
         storyDetailView.translatesAutoresizingMaskIntoConstraints = false
         storyDetailView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -51,20 +42,12 @@ class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic
         storyDetailView.setupUI()
     }
     
-    func doSomething()
-    {
+    func displayStoryDetails() {
         guard let selectedStory = selectedStory else { return }
         self.title = selectedStory.title
         storyDetailView.setup(with: selectedStory)
-        
-//        let request = StoryDetail.Something.Request()
-//        interactor?.doSomething(request: request)
     }
-    
-    func displaySomething(viewModel: StoryDetail.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
+
 }
 
 extension StoryDetailViewController: StoryDetailViewProtocol {

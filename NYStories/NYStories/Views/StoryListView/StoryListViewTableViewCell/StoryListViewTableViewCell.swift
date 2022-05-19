@@ -8,106 +8,73 @@
 import Foundation
 import UIKit
 import SDWebImage
-//struct StoryListTableViewCellModel {
-//    let storyImage: UIImage
-//    let storyTitle: String
-//    let storyAuthor: String
-//}
 
 final class StoryListTableViewCell: UITableViewCell {
 
-    private let titleLabel : UILabel = {
+    private let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
         lbl.font = UIFont.boldSystemFont(ofSize: 16)
         lbl.textAlignment = .left
+        lbl.numberOfLines = 0
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.setContentHuggingPriority(.required, for: .vertical)
         return lbl
     }()
     
-    
-    private let authorLabel : UILabel = {
+    private let authorLabel: UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .black
-        lbl.font = UIFont.systemFont(ofSize: 16)
+        lbl.textColor = .lightGray
+        lbl.font = UIFont.systemFont(ofSize: 12)
         lbl.textAlignment = .left
         lbl.numberOfLines = 0
+        lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
     
-    private let storyImage : UIImageView = {
-        //TODO: Provide image placeholder
+    private let storyImage: UIImageView = {
         let imgView = UIImageView()
-//        imgView.backgroundColor = .blue
         imgView.contentMode = .scaleAspectFill
         imgView.clipsToBounds = true
         imgView.layer.cornerRadius = 15
-//        imgView.image = UIImage(named: "download")
         imgView.sd_imageTransition = .fade
+        imgView.translatesAutoresizingMaskIntoConstraints = false
         return imgView
     }()
     
+    private let imageHeight = 60.0
+    private let padding = 10.0
+    
+    func setup(with story: StoryList.Something.ViewModel.DisplayedStory) {
+        authorLabel.text = story.author
+        titleLabel.text = story.title
+        guard let image = story.image else { return }
+        storyImage.sd_setImage(with: image, placeholderImage: UIImage(named: "download"))
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(titleLabel)
         addSubview(authorLabel)
         addSubview(storyImage)
-        #imageLiteral(resourceName: "download.png")
-        storyImage.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 90, height: 0, enableInsets: false)
-        titleLabel.anchor(top: topAnchor, left: storyImage.rightAnchor, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 0, enableInsets: false)
-        authorLabel.anchor(top: titleLabel.bottomAnchor, left: storyImage.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: frame.size.width, height: 0, enableInsets: false)
         
+        storyImage.topAnchor.constraint(equalTo: topAnchor, constant: padding).isActive = true
+        storyImage.leftAnchor.constraint(equalTo: leftAnchor, constant: padding).isActive = true
+        storyImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding).isActive = true
+        storyImage.heightAnchor.constraint(equalToConstant: imageHeight).isActive = true
+        storyImage.widthAnchor.constraint(equalTo: storyImage.heightAnchor).isActive = true
         
+        titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding).isActive = true
+        titleLabel.leftAnchor.constraint(equalTo: storyImage.rightAnchor, constant: padding).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -padding).isActive = true
         
-        
-//        let stackView = UIStackView(arrangedSubviews: [decreaseButton,productQuantity,increaseButton])
-//        stackView.distribution = .equalSpacing
-//        stackView.axis = .horizontal
-//        stackView.spacing = 5
-//        addSubview(stackView)
-//        stackView.anchor(top: topAnchor, left: productNameLabel.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 15, paddingLeft: 5, paddingBottom: 15, paddingRight: 10, width: 0, height: 70, enableInsets: false)
-        
+        authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding).isActive = true
+        authorLabel.leftAnchor.constraint(equalTo: storyImage.rightAnchor, constant: padding).isActive = true
+        authorLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -padding).isActive = true
+        authorLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding/2).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    func setup(with story: StoryList.Something.ViewModel.DisplayedStory) {
-        authorLabel.text = story.author
-        titleLabel.text = story.title
-        guard let image = story.image else { return }
-//        storyImage.load(url: image)
-        storyImage.sd_setImage(with: image, placeholderImage: UIImage(named: "download"))
-    }
-    
-    
 }
-
-//TODO: Replace
-
-//extension UIImageView {
-//    func load(url: URL) {
-//        DispatchQueue.global().async { [weak self] in
-//            if let data = try? Data(contentsOf: url) {
-//                if let image = UIImage(data: data) {
-//                    DispatchQueue.main.async {
-//                        self?.setImage(image, animated: true)
-////                        self?.image = image
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//extension UIImageView{
-//    func setImage(_ image: UIImage?, animated: Bool = true) {
-//        let duration = animated ? 0.3 : 0.0
-//        UIView.transition(with: self, duration: duration, options: .transitionCrossDissolve, animations: {
-//            self.image = image
-//        }, completion: nil)
-//    }
-//}
-//

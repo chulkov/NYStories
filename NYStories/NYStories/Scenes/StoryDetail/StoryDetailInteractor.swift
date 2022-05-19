@@ -12,26 +12,15 @@
 
 import UIKit
 
-protocol StoryDetailBusinessLogic
-{
+protocol StoryDetailBusinessLogic {
   func doSomething(request: StoryDetail.Something.Request)
 }
 
-protocol StoryDetailDataStore
-{
-  //var name: String { get set }
-}
-
-class StoryDetailInteractor: StoryDetailBusinessLogic, StoryDetailDataStore
-{
+class StoryDetailInteractor: StoryDetailBusinessLogic {
   var presenter: StoryDetailPresentationLogic?
   var worker: StoryDetailWorker?
-  //var name: String = ""
   
-  // MARK: Do something
-  
-  func doSomething(request: StoryDetail.Something.Request)
-  {
+  func doSomething(request: StoryDetail.Something.Request) {
     worker = StoryDetailWorker()
     worker?.doSomeWork()
     

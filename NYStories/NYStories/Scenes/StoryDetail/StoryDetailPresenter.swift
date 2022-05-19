@@ -12,20 +12,15 @@
 
 import UIKit
 
-protocol StoryDetailPresentationLogic
-{
-  func presentSomething(response: StoryDetail.Something.Response)
+protocol StoryDetailPresentationLogic {
+    func presentSomething(response: StoryDetail.Something.Response)
 }
 
-class StoryDetailPresenter: StoryDetailPresentationLogic
-{
-  weak var viewController: StoryDetailDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: StoryDetail.Something.Response)
-  {
-    let viewModel = StoryDetail.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+class StoryDetailPresenter: StoryDetailPresentationLogic {
+    weak var viewController: StoryDetailDisplayLogic?
+
+    func presentSomething(response: StoryDetail.Something.Response) {
+        let viewModel = StoryDetail.Something.ViewModel()
+        viewController?.displaySomething(viewModel: viewModel)
+    }
 }

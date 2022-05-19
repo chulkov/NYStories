@@ -12,52 +12,11 @@
 
 import UIKit
 
-protocol StoryListRoutingLogic
-{
+protocol StoryListRoutingLogic {
     func routeToStoryDetails(story: StoryList.Something.ViewModel.DisplayedStory)
 }
 
-//protocol StoryListDataPassing
-//{
-//  var dataStore: StoryListDataStore? { get }
-//}
-
-class StoryListRouter: NSObject, StoryListRoutingLogic//, StoryListDataPassing
-{
-//  weak var viewController: StoryListViewController?
-//  var dataStore: StoryListDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: StoryListViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: StoryListDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
-    
+class StoryListRouter: StoryListRoutingLogic {
     private weak var viewController: UIViewController?
     
     init(viewController: UIViewController) {
@@ -69,22 +28,5 @@ class StoryListRouter: NSObject, StoryListRoutingLogic//, StoryListDataPassing
         let vc = builder.build(story: story)
         vc.selectedStory = story //This way of data transfering is offered by clean-swift documentation
         self.viewController?.navigationController?.handlePush(vc, animated: true)
-    }
-    
-}
-
-//TODO: replace
-extension UINavigationController {
-    func handlePush(_ viewController: UIViewController, animated: Bool) {
-        if let navigationController = viewController as? UINavigationController,
-           let rootViewController = navigationController.rootViewController {
-            self.pushViewController(rootViewController, animated: animated)
-        } else {
-            self.pushViewController(viewController, animated: animated)
-        }
-    }
-
-    var rootViewController: UIViewController? {
-        return viewControllers.first
     }
 }
