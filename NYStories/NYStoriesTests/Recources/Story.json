@@ -1,0 +1,61 @@
+{
+    "status": "OK",
+    "copyright": "Copyright (c) 2022 The New York Times Company. All Rights Reserved.",
+    "section": "home",
+    "last_updated": "2022-05-17T11:18:31-04:00",
+    "num_results": 32,
+    "results": [{
+            "section": "business",
+            "subsection": "",
+            "title": "Poor Countries Face a Mounting Catastrophe Fueled by Inflation and Debt",
+            "abstract": "Russia’s war in Ukraine is combining with a global tightening of credit and an economic slowdown in China to sow misery in low- and middle-income countries.",
+            "url": "https://www.nytimes.com/2022/05/17/business/inflation-developing-economies.html",
+            "uri": "nyt://article/e84de29a-9311-5c08-abb1-56e677a212cc",
+            "byline": "By Peter S. Goodman, Ruth Maclean, Salman Masood, Elif Ince, Flávia Milhorance, Muktita Suhartono and Brenda Kiven",
+            "item_type": "Article",
+            "updated_date": "2022-05-17T10:51:41-04:00",
+            "created_date": "2022-05-17T10:09:09-04:00",
+            "published_date": "2022-05-17T10:09:09-04:00",
+            "material_type_facet": "",
+            "kicker": "",
+            "des_facet": [
+                "Economic Conditions and Trends",
+                "Politics and Government",
+                "United States Economy",
+                "Middle East and Africa Migrant Crisis",
+                "War and Armed Conflicts",
+                "Wheat",
+                "Embargoes and Sanctions",
+                "Prices (Fares, Fees and Rates)",
+                "Inflation (Economics)",
+                "Interest Rates",
+                "Third World and Developing Countries"
+            ],
+            "org_facet": [
+                "Federal Reserve System",
+                "International Monetary Fund"
+            ],
+            "per_facet": [],
+            "geo_facet": [
+                "Africa",
+                "Brazil",
+                "Bursa (Turkey)",
+                "Far East, South and Southeast Asia and Pacific Areas",
+                "Cameroon",
+                "Sudan",
+                "Yemen",
+                "Pakistan"
+            ],
+            "multimedia": [
+                {
+                    "url": "https://static01.nyt.com/images/2022/05/16/business/00global-econ-1/merlin_206767902_f6784618-f4c7-42a5-abff-7c8195d7c8ef-superJumbo.jpg",
+                    "format": "Super Jumbo",
+                    "height": 1365,
+                    "width": 2048,
+                    "type": "image",
+                    "subtype": "photo",
+                    "caption": "A food market in Cameroon, where food inflation is causing hardship.",
+                    "copyright": "Tom Saater for The New York Times"
+                }],
+        }]
+}

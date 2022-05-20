@@ -14,7 +14,7 @@ import UIKit
 import SafariServices
 
 protocol StoryDetailDisplayLogic: AnyObject {
-
+    func displaySomething(viewModel: StoryDetail.Something.ViewModel)
 }
 
 class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic {
@@ -41,6 +41,8 @@ class StoryDetailViewController: UIViewController, StoryDetailDisplayLogic {
         
         storyDetailView.setupUI()
     }
+    
+    func displaySomething(viewModel: StoryDetail.Something.ViewModel) {}
     
     func displayStoryDetails() {
         guard let selectedStory = selectedStory else { return }
