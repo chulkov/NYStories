@@ -20,7 +20,6 @@ class StoryListPresenter: StoryListPresentationLogic {
     weak var viewController: StoryListDisplayLogic?
     
     func presentModel(response: StoryList.Something.Response) {
-        print("we are at presenter and have \(response.stories.count)")
         let viewModel = makeViewModel(for: response)
         viewController?.displayStories(viewModel: viewModel)
     }
