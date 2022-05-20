@@ -42,7 +42,6 @@ final class StoryListTableViewCell: UITableViewCell {
         return imgView
     }()
     
-    private let imageHeight = 60.0
     private let padding = 10.0
     
     func setup(with story: StoryList.Something.ViewModel.DisplayedStory) {
@@ -61,7 +60,6 @@ final class StoryListTableViewCell: UITableViewCell {
         storyImage.topAnchor.constraint(equalTo: topAnchor, constant: padding).isActive = true
         storyImage.leftAnchor.constraint(equalTo: leftAnchor, constant: padding).isActive = true
         storyImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -padding).isActive = true
-        storyImage.heightAnchor.constraint(equalToConstant: imageHeight).isActive = true
         storyImage.widthAnchor.constraint(equalTo: storyImage.heightAnchor).isActive = true
         
         titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: padding).isActive = true
